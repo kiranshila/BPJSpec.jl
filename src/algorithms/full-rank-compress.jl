@@ -13,7 +13,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-doc"""
+"""
     full_rank_compress!(output_mmodes, output_transfermatrix, output_noisematrix,
                         input_mmodes,  input_transfermatrix,  input_noisematrix;
                         progress=false)
@@ -29,10 +29,10 @@ so that there is no need to store the SVD as well.
 
 **Arguments:**
 
-* `output_mmodes` the output compressed $m$-modes
+* `output_mmodes` the output compressed \$m\$-modes
 * `output_transfermatrix` the output compressed transfer matrix
 * `output_noisematrix` the output compressed noise covariance matrix
-* `input_mmodes` the input $m$-modes that will be compressed
+* `input_mmodes` the input \$m\$-modes that will be compressed
 * `input_transfermatrix` the input transfer matrix that will be used to generate the compression
 * `input_noisematrix` the input noise covariance matrix
 

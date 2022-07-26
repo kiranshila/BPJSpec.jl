@@ -17,7 +17,7 @@
         C[0] = C0
 
         n = RandomBlockVector(C)
-        C0′ = zeros(Complex128, size)
+        C0′ = zeros(ComplexF64, size)
         for idx = 1:Ntrials
             n0 = n[0]
             C0′ .+= n0*n0'

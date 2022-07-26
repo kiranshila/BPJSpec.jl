@@ -13,20 +13,20 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-doc"""
+"""
     fisher_information(transfermatrix, covariancematrix, basis; iterations=10)
 
 Compute a Monte-Carlo approximation of the Fisher information matrix.
 
 ```math
-F_{ab} = {\rm tr}\left( C^{-1} C_a C^{-1} C_b \right)
+F_{ab} = {\\rm tr}\\left( C^{-1} C_a C^{-1} C_b \\right)
 ```
 
 **Arguments:**
 
-* `transfermatrix` or $B$ specifies the interferometer's response to the sky
-* `covariancematrix` or $C$ specifies the covariance of the measured $m$-modes
-* `basis` or $C_a$ is a list of angular covariance matrices that represent the change in the
+* `transfermatrix` or \$B\$ specifies the interferometer's response to the sky
+* `covariancematrix` or \$C\$ specifies the covariance of the measured \$m\$-modes
+* `basis` or \$C_a\$ is a list of angular covariance matrices that represent the change in the
   covariance with respect to an increase in power of each 21-cm power spectrum bin
 
 **Keyword Arguments:**

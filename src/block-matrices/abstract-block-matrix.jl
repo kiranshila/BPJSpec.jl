@@ -13,7 +13,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-doc"""
+"""
     abstract type AbstractBlockMatrix{B, N}
 
 This type represents a (potentially enormous) block-diagonal matrix. This type is designed to be
@@ -66,7 +66,7 @@ function _construct(T::Type{<:AbstractBlockMatrix{B}}, storage::Mechanism, field
     T′ = discard_type_parameters(T)
     # Now it seems like sometimes we struggle to get the types exactly right for some of the
     # metadata fields. Try to convert them to the correct type here.
-    fields′ = ((convert(fieldtype(T, idx+2), fields[idx]) for idx = 1:length(fields))...)
+    fields′ = [convert(fieldtype(T, idx+2), fields[idx]) for idx = 1:length(fields)]
     # Finally call the constructor with the converted fields.
     output = T′(storage, cache, fields′...)
     if storage isa NoFile
@@ -189,8 +189,8 @@ distribute_write(matrix::AbstractBlockMatrix) =
 distribute_read(matrix::AbstractBlockMatrix) =
     distribute_read(matrix.storage) && !used(matrix.cache)
 
-function Base.dot(lhs::AbstractBlockMatrix, rhs::AbstractBlockMatrix)
-    output = zero(Complex128)
+function LinearAlgebra.dot(lhs::AbstractBlockMatrix, rhs::AbstractBlockMatrix)
+    output = zero(ComplexF64)
     for idx in indices(lhs)
         output += dot(lhs[idx...], rhs[idx...])
     end

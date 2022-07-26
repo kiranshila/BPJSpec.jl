@@ -20,7 +20,7 @@ function create(::Type{MultiFrequencyAlm}, input::MFBlockVector)
     Nfreq = length(input.frequencies)
     output = create(LMBlockVector, lmax, mmax, input.frequencies, input.bandwidth)
     for m = 0:mmax, l = L(m):L(lmax)
-        output_block = zeros(Complex128, Nfreq)
+        output_block = zeros(ComplexF64, Nfreq)
         for β = 1:Nfreq
             input_block = input[m, β]
             output_block[β] = input_block[l-m+1]
@@ -35,7 +35,7 @@ function create(::Type{MultiFrequencyAlm}, input::MBlockVector, frequencies, ban
     Nfreq = length(frequencies)
     output = create(LMBlockVector, lmax, mmax, frequencies, bandwidth)
     for m = 0:mmax, l = L(m):L(lmax)
-        output_block = zeros(Complex128, Nfreq)
+        output_block = zeros(ComplexF64, Nfreq)
         for β = 1:Nfreq
             input_block = input[m]
             output_block[β] = input_block[(lmax-m+1)*(β-1) + (l-m+1)]
@@ -50,7 +50,7 @@ function create(::Type{MFBlockVector}, input::LMBlockVector)
     Nfreq = length(input.frequencies)
     output = create(MFBlockVector, mmax, input.frequencies, input.bandwidth)
     for β = 1:Nfreq, m = 0:mmax
-        output_block = zeros(Complex128, lmax-m+1)
+        output_block = zeros(ComplexF64, lmax-m+1)
         for l = L(m):L(lmax)
             input_block = input[l, m]
             output_block[l-m+1] = input_block[β]

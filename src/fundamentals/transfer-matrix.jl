@@ -13,7 +13,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-doc"""
+"""
     struct TransferMatrix
 
 This singleton type represents the transfer matrix of an interferometer. This matrix effectively
@@ -108,7 +108,7 @@ function compute_baseline_group_one_frequency!(matrix, subordinates, metadata,
     plan = FastTransformsWrapper.plan_sht(lmax, mmax, size(rhat))
 
     queue  = collect(1:length(baselines))
-    blocks = [zeros(Complex128, two(m)*length(baselines), lmax-m+1) for m = 0:mmax]
+    blocks = [zeros(ComplexF64, two(m)*length(baselines), lmax-m+1) for m = 0:mmax]
 
     function just_do_it(α)
         real_coeff, imag_coeff = fringe_pattern(baselines[α], phase_center, beam_map, rhat, plan, ν)

@@ -2,7 +2,7 @@
 # happens to be more singular than usual. So we'll just set the random seed here so that we at least
 # get a deterministic random matrix.
 
-srand(456)
+Random.seed!(456)
 
 @testset "mixing-matrix.jl" begin
     A = randn(5, 5)

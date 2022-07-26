@@ -13,10 +13,10 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-doc"""
+"""
     q_estimator(mmodes, transfermatrix, covariancematrix, basis)
 
-Evaluate the $q$ estimator:
+Evaluate the \$q\$ estimator:
 
 ```math
 q_a = v^* C^{-1} B C_a B^* C^{-1} v
@@ -24,10 +24,10 @@ q_a = v^* C^{-1} B C_a B^* C^{-1} v
 
 **Arguments:**
 
-* `mmodes` or $v$ specifies the list of measured $m$-modes
-* `transfermatrix` or $B$ specifies the interferometer's response to the sky
-* `covariancematrix` or $C$ specifies the covariance of the measured $m$-modes
-* `basis` or $C_a$ is a list of angular covariance matrices that represent the change in the
+* `mmodes` or \$v\$ specifies the list of measured \$m\$-modes
+* `transfermatrix` or \$B\$ specifies the interferometer's response to the sky
+* `covariancematrix` or \$C\$ specifies the covariance of the measured \$m\$-modes
+* `basis` or \$C_a\$ is a list of angular covariance matrices that represent the change in the
   covariance with respect to an increase in power of each 21-cm power spectrum bin
 """
 function q_estimator(mmodes, transfermatrix, covariancematrix, basis)

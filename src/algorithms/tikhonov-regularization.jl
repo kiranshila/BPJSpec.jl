@@ -13,7 +13,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-doc"""
+"""
     tikhonov(transfermatrix, mmodes; regularization=1e-2, mfs=false, storage=NoFile())
 
 Create a dirty image of the sky using Tikhonov regularization.
@@ -21,7 +21,7 @@ Create a dirty image of the sky using Tikhonov regularization.
 **Arguments:**
 
 * `transfermatrix` the interferometer's transfer matrix, describing its response to the sky
-* `mmodes` the $m$-modes measured by the interferometer
+* `mmodes` the \$m\$-modes measured by the interferometer
 
 **Keyword Arguments:**
 
@@ -91,8 +91,8 @@ end
 
 function _tikhonov_mfs(transfermatrix, mmodes, regularization, lmax, m)
     BLAS.set_num_threads(16)
-    BB = zeros(Complex128, lmax-m+1, lmax-m+1)
-    Bv = zeros(Complex128, lmax-m+1)
+    BB = zeros(ComplexF64, lmax-m+1, lmax-m+1)
+    Bv = zeros(ComplexF64, lmax-m+1)
     for β = 1:length(mmodes.frequencies)
         _tikhonov_accumulate!(BB, Bv, transfermatrix[m, β], mmodes[m, β])
     end

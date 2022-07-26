@@ -134,7 +134,7 @@ function Base.getindex(storage::HierarchicalStorage, m, β)
     hierarchy = storage.hierarchy
 
     # load each hierarchical component of the matrix
-    blocks = Matrix{Complex128}[]
+    blocks = Matrix{ComplexF64}[]
     dirname  = @sprintf("%04d",      β)
     filename = @sprintf("%04d.jld2", m)
     jldopen(joinpath(storage.path, dirname, filename), mode[r]..., IOStream) do file
@@ -147,7 +147,7 @@ function Base.getindex(storage::HierarchicalStorage, m, β)
     end
 
     # stitch the components together into a single matrix
-    output = zeros(Complex128,
+    output = zeros(ComplexF64,
                    sum(    size(block, 1) for block in blocks),
                    maximum(size(block, 2) for block in blocks))
     offset = 1

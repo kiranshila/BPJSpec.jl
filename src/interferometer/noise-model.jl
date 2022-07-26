@@ -13,49 +13,49 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-doc"""
+"""
     struct NoiseModel
 
-This type represents the thermal noise contributed to the measurement of a set of $m$-modes.
+This type represents the thermal noise contributed to the measurement of a set of \$m\$-modes.
 
 A careful reading of Taylor, Carilli, Perley chapter 9 reveals that under the convention that
-Stokes-I is $(\rm xx + yy)/2$ we get the following expressions (see Equation 9-13):
+Stokes-I is \$(\\rm xx + yy)/2\$ we get the following expressions (see Equation 9-13):
 
 RMS of the real or imaginary component of single polarization visibilities (in flux-density units):
 ```math
-σ_\text{real,xx} = \frac{\sqrt{2} k T_{\rm sys}}{A_e \sqrt{Δν\,τ}}
+σ_\\text{real,xx} = \\frac{\\sqrt{2} k T_{\\rm sys}}{A_e \\sqrt{Δν\\,τ}}
 ```
 
 RMS of the real or imaginary component of Stokes-I visibilities (in flux-density units):
 ```math
-σ_\text{real,I} = \frac{σ_\text{real,xx}}{\sqrt{2}} = \frac{k T_{\rm sys}}{A_e \sqrt{Δν\,τ}}
+σ_\\text{real,I} = \\frac{σ_\\text{real,xx}}{\\sqrt{2}} = \\frac{k T_{\\rm sys}}{A_e \\sqrt{Δν\\,τ}}
 ```
 
 RMS of the complex-valued Stokes-I visibilities (in flux-density units):
 ```math
-σ_\text{complex,I} = \sqrt{2} σ_\text{real,I} = \frac{\sqrt{2} k T_{\rm sys}}{A_e \sqrt{Δν\,τ}}
+σ_\\text{complex,I} = \\sqrt{2} σ_\\text{real,I} = \\frac{\\sqrt{2} k T_{\\rm sys}}{A_e \\sqrt{Δν\\,τ}}
 ```
 
-Where $k$ is the Boltzmann constant, $T_{\rm sys}$ is the system temperature, $A_e$ is the effective
-collecting area, $Δν$ is the bandwidth, and $τ$ is the integration time.
+Where \$k\$ is the Boltzmann constant, \$T_{\\rm sys}\$ is the system temperature, \$A_e\$ is the effective
+collecting area, \$Δν\$ is the bandwidth, and \$τ\$ is the integration time.
 
 However, for a dipole antenna, the effective collecting area is not a very physically meaningful
 value. However, it turns out that we can relate the effective collecting are to the solid angle
-subtended by the primary beam $Ω$:
+subtended by the primary beam \$Ω\$:
 ```math
-A_e = \frac{λ^2}{Ω}
+A_e = \\frac{λ^2}{Ω}
 ```
 
 !!! note
     There seems to be some ambiguity in the literature in regards to notation. I believe we
-    originally assumed that $A_e$ refers to the maximum effective collecting area, and that we have
+    originally assumed that \$A_e\$ refers to the maximum effective collecting area, and that we have
     normalized the beam to be unity in that direction.
 
 Finally we end  up with the following expression after including an additional contribution due to
 time smearing:
 ```math
-σ_\text{m-modes} = \frac{k T_{\rm sys} Ω}{λ^2 \sqrt{Δν\,τ\,N_{\rm int}}}
-                   {\rm sinc}\left(\frac{m\tau}{\text{sidereal day}}\right)
+σ_\\text{m-modes} = \\frac{k T_{\\rm sys} Ω}{λ^2 \\sqrt{Δν\\,τ\\,N_{\\rm int}}}
+                   {\\rm sinc}\\left(\\frac{m\\tau}{\\text{sidereal day}}\\right)
 ```
 
 **Fields:**

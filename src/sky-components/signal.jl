@@ -15,7 +15,7 @@
 
 abstract type PowerSpectrum <: SkyComponent end
 
-doc"""
+"""
     struct CylindricalPS <: PowerSpectrum <: SkyComponent
 
 This type represents a cylindrically averaged power spectrum of the 21-cm brightness temperature
@@ -213,7 +213,7 @@ function fiducial_signal_model()
     kperp = logspace(log10(0.01), log10(1.0), 200) .* u"Mpc^-1"
     unshift!(kpara, 0u"Mpc^-1")
     unshift!(kperp, 0u"Mpc^-1")
-    k = sqrt.(kpara.^2 .+ kperp.'.^2)
+    k = sqrt.(kpara.^2 .+ transpose(kperp).^2)
     power = 2π^2 * 1000u"mK^2" ./ (k+0.1u"Mpc^-1").^3
     SignalModel((10., 30.), kpara, kperp, power)
 end

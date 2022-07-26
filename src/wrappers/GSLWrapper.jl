@@ -40,7 +40,7 @@ function Y(l, m, θ, ϕ)
     out = GSL.sf_legendre_sphPlm(l, abs(m), cos(θ)) * cis(m*ϕ)
     # GSL already applies the Condon-Shortley phase convention to this result, so if we want m < 0
     # we need to undo the factor of (-1)^m.
-    out *= m < 0? (-1)^(-m) : 1
+    out *= m < 0 ? (-1)^(-m) : 1
     out
 end
 

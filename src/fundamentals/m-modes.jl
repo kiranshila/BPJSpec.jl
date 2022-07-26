@@ -13,14 +13,14 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-doc"""
+"""
     struct MModes
 
-This singleton type represents the $m$-modes measured by the interferometer. $m$-modes are computed
-from a Fourier transform of the measured visibilities over sidereal time $ϕ ∈ [0, 2π)$.
+This singleton type represents the \$m\$-modes measured by the interferometer. \$m\$-modes are computed
+from a Fourier transform of the measured visibilities over sidereal time \$ϕ ∈ [0, 2π)\$.
 
 ```math
-\text{m-mode} = \int_0^{2π} (\text{visibility}) \times e^{-imϕ} \, {\rm d}ϕ
+\\text{m-mode} = \\int_0^{2π} (\\text{visibility}) \\times e^{-imϕ} \\, {\\rm d}ϕ
 ```
 """
 struct MModes end
@@ -34,7 +34,7 @@ end
 
 "Compute m-modes from two dimensional matrix of visibilities (time × baseline)."
 function compute!(::Type{MModes}, mmodes::MFBlockVector, hierarchy::Hierarchy,
-                  visibilities::Matrix{Complex128}, β; dϕ=0.0)
+                  visibilities::Matrix{ComplexF64}, β; dϕ=0.0)
     store!(mmodes, hierarchy, fourier_transform(visibilities), β, dϕ)
 end
 
@@ -48,7 +48,7 @@ function store!(mmodes, hierarchy, transformed_visibilities, β, dϕ)
     Ntime = size(transformed_visibilities, 1)
 
     # m = 0
-    block = zeros(Complex128, Nbase(hierarchy, 0))
+    block = zeros(ComplexF64, Nbase(hierarchy, 0))
     for (α, α′) in enumerate(baseline_permutation(hierarchy, 0))
         block[α] = transformed_visibilities[1, α′]
     end
@@ -56,7 +56,7 @@ function store!(mmodes, hierarchy, transformed_visibilities, β, dϕ)
 
     # m > 0
     for m = 1:mmodes.mmax
-        block = zeros(Complex128, 2Nbase(hierarchy, m))
+        block = zeros(ComplexF64, 2Nbase(hierarchy, m))
         rotation = cis(m*dϕ)
         for (α, α′) in enumerate(baseline_permutation(hierarchy, m))
             α1 = 2α-1 # positive m

@@ -1,0 +1,25 @@
+name = "BPJSpec"
+uuid = "36032812-0d20-11ed-0d2c-676304858c96"
+authors = "Michael Eastwood and contributors"
+
+[deps]
+ApproxFun = "28f2ccd6-bb30-5033-b560-165f7b14dc2f"
+CasaCore = "718368f3-8adb-47a3-8de4-bb7d0e655ec3"
+Cosmology = "76746363-e552-5dba-9a5a-cef6fa9cc5ab"
+Cubature = "667455a9-e2ce-5579-9412-b964f529a492"
+FastTransforms = "057dd010-8810-581a-b7be-e3fc3b93f78c"
+GSL = "92c85e6c-cbff-5e0c-80f7-495c94daaecd"
+JLD2 = "033835bb-8acc-5ee8-8aae-3f567f8a3819"
+LinearAlgebra = "37e2e46d-f89d-539d-b4ee-838fcccc9c8e"
+MacroTools = "1914dd2f-81c6-5fcd-8719-6d5c9610ff09"
+Printf = "de0858da-6303-5e67-8744-51eddeeeb8d7"
+ProgressMeter = "92933f4c-e287-5a05-a399-4b506db050ca"
+StaticArrays = "90137ffa-7385-5640-81b9-e52037218182"
+Unitful = "1986cc42-f94f-5a68-af5c-568840ba703d"
+UnitfulAstro = "6112ee07-acf9-5e0f-b108-d242c714bf9f"
+
+[extras]
+Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
+
+[targets]
+test = ["Test"]

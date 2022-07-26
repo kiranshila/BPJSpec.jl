@@ -13,23 +13,23 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-doc"""
+"""
     struct ForegroundComponent <: SkyComponent
 
 This type represents the contribution of a single foreground component to the multi-frequency
 angular power spectrum.
 
 ```math
-C_l(ν_1, ν_2) = A \left(\frac{l+1}{1001}\right)^{-α}
-                  \left(\frac{ν_1 ν_2}{ν_0^2}\right)^{-β}
-                  \exp\left(-\frac{\log^2(ν_1/ν_2)}{2ζ^2}\right)
+C_l(ν_1, ν_2) = A \\left(\\frac{l+1}{1001}\\right)^{-α}
+                  \\left(\\frac{ν_1 ν_2}{ν_0^2}\\right)^{-β}
+                  \\exp\\left(-\\frac{\\log^2(ν_1/ν_2)}{2ζ^2}\\right)
 ```
 
 **Fields:**
 
 * `ν0` specifies the reference frequency
 * `A` specifies the overall amplitude at the reference frequency
-* `α` is the power-law index for the multipole moment $l$
+* `α` is the power-law index for the multipole moment \$l\$
 * `β` is the power-law index for frequency
 * `ζ` essentially determines how quickly the foreground component decorrelates in frequency
 
@@ -126,14 +126,14 @@ function galactic_free_free()
     ForegroundComponent(130.0u"MHz", 0.088u"mK^2", 3.0, 2.15, 35)
 end
 
-doc"""
+"""
     struct GeneralizedForegroundComponent <: SkyComponent
 
 This type allows for a more general representation of the foreground emission. Instead of using a
 parametric model, the multi-frequency angular power spectrum is discretized.
 
 Furthermore, we assume that the power spectrum is a function of only the geometric mean of the two
-frequencies (ie. $\sqrt{\nu_1 \nu_2}$). This is driven by the expectation that there is very little
+frequencies (ie. \$\\sqrt{\\nu_1 \\nu_2}\$). This is driven by the expectation that there is very little
 decorrelation of the foreground emission between frequency channels. Instead, this allows for a
 power-law spectrum of the foreground emission.
 """

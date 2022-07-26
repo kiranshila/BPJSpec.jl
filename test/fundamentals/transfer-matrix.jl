@@ -74,7 +74,7 @@ const simple_beam_solid_angle = π
         alm = create(MFBlockVector, mmax, frequencies, bandwidth)
         for β = 1:length(frequencies)
             for m = 0:mmax
-                block = zeros(Complex128, lmax - m + 1)
+                block = zeros(ComplexF64, lmax - m + 1)
                 if m == 0
                     block[1] = sqrt(4π) # 1 K constant sky brightness
                 end
@@ -107,7 +107,7 @@ const simple_beam_solid_angle = π
             λ = u"c" / frequencies[β]
             factor = ustrip(uconvert(u"K", λ^2*u"Jy"/(2*u"k")))
             for m = 0:mmax
-                block = zeros(Complex128, lmax - m + 1)
+                block = zeros(ComplexF64, lmax - m + 1)
                 for l = m:lmax
                     block[l - m + 1] = conj(BPJSpec.Y(l, m, 0, 0)) * factor
                 end

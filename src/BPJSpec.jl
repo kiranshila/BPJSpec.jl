@@ -15,10 +15,10 @@
 
 #__precompile__()
 
-doc"""
+"""
     module BPJSpec
 
-BPJSpec is a 21-cm power spectrum code developed for the OVRO-LWA based on the $m$-mode analysis
+BPJSpec is a 21-cm power spectrum code developed for the OVRO-LWA based on the \$m\$-mode analysis
 formalism.
 
 # m-Mode Analysis
@@ -62,6 +62,8 @@ using JLD2
 using MacroTools
 using ProgressMeter
 using StaticArrays
+using LinearAlgebra
+using Printf
 
 # Defines an extension of FastTransforms.jl that provides a more convenient interface for fast
 # spherical harmonic transforms.
