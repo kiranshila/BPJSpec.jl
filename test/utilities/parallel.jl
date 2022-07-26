@@ -3,7 +3,7 @@
     # Therefore you can't test any of the multi-node parallelism we rely on. We'll just fake it here
     # to test some of the utilities though.
 
-    hostname = chomp(readstring(`hostname`))
+    hostname = readchomp(`hostname`)
     workers  = BPJSpec.categorize_workers()
     @test length(workers.dict) == 1
     @test haskey(workers.dict, hostname)

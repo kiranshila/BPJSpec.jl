@@ -18,7 +18,7 @@ struct Workers
 end
 
 function categorize_workers()
-    futures = [remotecall(() -> chomp(readstring(`hostname`)), worker) for worker in workers()]
+    futures = [remotecall(() -> readchomp(`hostname`), worker) for worker in workers()]
     hierarchy = Dict{String, Vector{Int}}()
     for (future, worker) in zip(futures, workers())
         hostname = fetch(future)

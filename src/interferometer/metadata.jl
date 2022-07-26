@@ -30,7 +30,7 @@ function from_ttcal(ttcal_metadata)
 
     frequencies  = ttcal_metadata.frequencies
     bandwidth    = fill(24.0u"kHz", length(frequencies)) # default for OVRO-LWA
-    positions    = measure.(frame, ttcal_metadata.positions, pos"ITRF")
+    positions    = [measure(frame, pos , pos"ITRF") for pos in ttcal_metadata.positions] 
     phase_center = measure(frame, ttcal_metadata.phase_centers[1], dir"ITRF")
 
     position  = mean(positions)

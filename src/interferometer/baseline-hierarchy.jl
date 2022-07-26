@@ -132,7 +132,7 @@ end
 
 "Categorize each baseline based on the divisions computed above."
 function categorize_baselines(lmax, divisions)
-    [find(divisions[idx] .≤ lmax .< divisions[idx+1]) for idx = 1:length(divisions)-1]
+    [findall(divisions[idx] .≤ lmax .< divisions[idx+1]) for idx = 1:length(divisions)-1]
 end
 
 function Nbase(hierarchy::Hierarchy, l)

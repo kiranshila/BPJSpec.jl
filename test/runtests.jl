@@ -3,33 +3,35 @@ using Random
 using Test
 using Unitful, UnitfulAstro
 using CasaCore.Measures
+using LinearAlgebra
+using Statistics
 
 Random.seed!(123)
 
 @testset "BPJSpec Tests" begin
-    # @testset "wrappers" begin
-    #     include("wrappers/FastTransformsWrapper.jl")
-    #     include("wrappers/CosmologyWrapper.jl")
-    #     include("wrappers/GSLWrapper.jl")
-    # end
+    @testset "wrappers" begin
+        include("wrappers/FastTransformsWrapper.jl")
+        include("wrappers/CosmologyWrapper.jl")
+        include("wrappers/GSLWrapper.jl")
+    end
 
-    # @testset "utilities" begin
-    #     include("utilities/misc.jl")
-    #     include("utilities/parallel.jl")
-    #     include("utilities/recombination-lines.jl")
-    #     include("utilities/white-noise.jl")
-    # end
+    @testset "utilities" begin
+        include("utilities/misc.jl")
+        include("utilities/parallel.jl")
+        include("utilities/recombination-lines.jl")
+        include("utilities/white-noise.jl")
+    end
 
-    # @testset "sky" begin
-    #     include("sky-components/foregrounds.jl")
-    #     include("sky-components/signal.jl")
-    # end
+    @testset "sky" begin
+        include("sky-components/foregrounds.jl")
+        include("sky-components/signal.jl")
+    end
 
-    # @testset "interferometer" begin
-    #     include("interferometer/metadata.jl")
-    #     include("interferometer/baseline-hierarchy.jl")
-    #     include("interferometer/noise-model.jl")
-    # end
+    @testset "interferometer" begin
+        include("interferometer/metadata.jl")
+        include("interferometer/baseline-hierarchy.jl")
+        include("interferometer/noise-model.jl")
+    end
 
     # @testset "block-matrices" begin
     #     include("block-matrices/storage-mechanisms.jl")

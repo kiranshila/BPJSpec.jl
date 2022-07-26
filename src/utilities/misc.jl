@@ -1,5 +1,5 @@
 "Convenience method for computing the conjugate transpose of a matrix."
-T(A) = ctranspose(A)
+T(A) = A'
 
 "Convenience function for guaranteeing a matrix is Hermitian."
 H(A) = 0.5*(A+A')
@@ -38,6 +38,7 @@ indexing with m.
 struct L <: Integer
     l :: Int
 end
+L(l::L) = L(l.l)
 Base.convert(::Type{L}, l::Int) = L(l)
 Base.convert(::Type{Int}, l::L) = l.l
 Base.promote_rule(::Type{L}, ::Type{Int}) = L

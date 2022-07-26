@@ -1,7 +1,7 @@
 @testset "signal.jl" begin
-    kpara = collect(linspace(0.0, 1.0, 1001)) .* u"Mpc^-1"
-    kperp = collect(linspace(0.0, 0.1, 1000)) .* u"Mpc^-1"
-    k     = collect(linspace(0.0, 1.1, 2000)) .* u"Mpc^-1"
+    kpara = collect(range(0.0; stop=1.0, length=1001)) .* u"Mpc^-1"
+    kperp = collect(range(0.0; stop=0.1, length=1000)) .* u"Mpc^-1"
+    k     = collect(range(0.0; stop=1.1, length=2000)) .* u"Mpc^-1"
     units = u"mK^2*Mpc^3"
 
     ν = 45u"MHz"
@@ -46,7 +46,7 @@
 
     # linear spectrum
     power = ones(length(kpara), length(kperp)) .* u"mK^2*Mpc^3"
-    for j = 1:length(kperp), i = 1:length(kpara)
+    for j = eachindex(kperp), i = eachindex(kpara)
         power[i, j] = ustrip(kpara[i] + kperp[j])*units
     end
     signal = BPJSpec.CylindricalPS((10, 30), kpara, kperp, power)

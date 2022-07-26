@@ -64,6 +64,8 @@ using ProgressMeter
 using StaticArrays
 using LinearAlgebra
 using Printf
+using Distributed
+using Statistics
 
 # Defines an extension of FastTransforms.jl that provides a more convenient interface for fast
 # spherical harmonic transforms.

@@ -12,7 +12,7 @@
 
     mmodes = create(MModes, NoFile(), metadata, hierarchy)
 
-    ϕ = linspace(0, 2π, 6629)[1:6628]
+    ϕ = range(0, stop=2π, length=6629)[1:6628]
     X = reshape(cis.(ϕ) .+ 1, 6628, 1)
 
     compute!(MModes, mmodes, hierarchy, X, 1)
