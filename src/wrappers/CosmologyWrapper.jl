@@ -17,15 +17,12 @@ module CosmologyWrapper
 
 export comoving_distance, age, frequency, redshift, approximate
 
-using Cosmology
+import Cosmology
 using ApproxFun
 using Unitful, UnitfulAstro
 
 const HI = 1420.40575177u"MHz"
-const cosmology = Cosmology.FlatLCDM{Float64}(0.69,                # h
-                                              0.7099122024007928,  # ΩΛ
-                                              0.29,                # Ωm
-                                              8.77975992071536e-5) # Ωr
+const COSM = Cosmology.cosmology()
 
 """
     comoving_distance(z)
@@ -42,47 +39,14 @@ julia> comoving_distance(10)
 9689.514711746533 Mpc
 ```
 """
-comoving_distance(z) = Cosmology.comoving_radial_dist_mpc(cosmology, z) * u"Mpc"
+comoving_distance(z) = Cosmology.comoving_radial_dist(COSM, z)
 comoving_distance(ν::Unitful.Frequency) = comoving_distance(redshift(ν))
 
 function approximate(::typeof(comoving_distance), zmin, zmax)
-    f = Fun(z -> Cosmology.comoving_radial_dist_mpc(cosmology, z), zmin..zmax)
-    z -> f(z)*u"Mpc"
+    f = Fun(z -> ustrip(Cosmology.comoving_radial_dist(COSM, z)), zmin..zmax)
+    x -> f(x) * u"Mpc"
 end
 
-"""
-    age(z)
-
-Calculate the age of the universe (in units of Gyr) to the redshift `z`.
-
-**Usage:**
-
-```jldoctest
-julia> age(1)
-5.918077173774152 Gyr
-
-julia> age(10)
-0.4785005773464139 Gyr
-```
-"""
-age(z) = Cosmology.age_gyr(cosmology, z) * u"Gyr"
-
-"""
-    frequency(z)
-
-Calculate the frequency of the 21 cm line of Hydrogen at the redshift `z`.
-
-**Usage:**
-
-```jldoctest
-julia> frequency(1)
-710.202875885 MHz
-
-julia> frequency(10)
-129.12779561545454 MHz
-```
-"""
-frequency(z) = HI/(1+z)
 
 """
     redshift(ν)

@@ -17,6 +17,7 @@ module FastTransformsWrapper
 
 using FastTransforms
 using CasaCore.Measures
+using LinearAlgebra
 
 struct SHT
     sph2fourier_plan
@@ -30,7 +31,7 @@ end
 function plan_sht(lmax, mmax, size)
     alm = zeros(lmax+1, 2mmax+1)
     map = zeros(size)
-    sph2fourier_plan = plan_sph2fourier(alm, sketch=:none)
+    sph2fourier_plan = plan_sph2fourier(alm)
     #synthesis_plan = FastTransforms.plan_synthesis(map)
     #analysis_plan = FastTransforms.plan_analysis(map)
     SHT(sph2fourier_plan, lmax, mmax, size)
@@ -93,15 +94,15 @@ function alm2map(sht, alm)
     padded_fourier = fourier
 
     # synthesize the map
-    synthesis_plan = FastTransforms.plan_synthesis(padded_fourier)
-    output = A_mul_B!(zero(padded_fourier), synthesis_plan, padded_fourier)
+    synthesis_plan = FastTransforms.plan_sph_synthesis(padded_fourier)
+    output = synthesis_plan * padded_fourier
     Map(output)
 end
 
 function map2alm(sht, map)
     # analyze the map
-    analysis_plan = FastTransforms.plan_analysis(map.matrix)
-    fourier = A_mul_B!(zero(map.matrix), analysis_plan, map.matrix)
+    analysis_plan = FastTransforms.plan_sph_analysis(map.matrix)
+    fourier = analysis_plan * map.matrix
 
     # cut the Fourier series down to the right size (for the desired lmax, mmax)
     #cut_fourier = fourier[1:sht.lmax+1, 1:2sht.mmax+1]

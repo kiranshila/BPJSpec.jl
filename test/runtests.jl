@@ -7,11 +7,11 @@ using CasaCore.Measures
 Random.seed!(123)
 
 @testset "BPJSpec Tests" begin
-    @testset "wrappers" begin
-        include("wrappers/FastTransformsWrapper.jl")
-        # include("wrappers/CosmologyWrapper.jl")
-        # include("wrappers/GSLWrapper.jl")
-    end
+    # @testset "wrappers" begin
+    #     include("wrappers/FastTransformsWrapper.jl")
+    #     include("wrappers/CosmologyWrapper.jl")
+    #     include("wrappers/GSLWrapper.jl")
+    # end
 
     # @testset "utilities" begin
     #     include("utilities/misc.jl")
