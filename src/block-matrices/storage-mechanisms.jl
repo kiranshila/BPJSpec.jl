@@ -201,7 +201,7 @@ struct Cache{T}
 end
 
 function Cache{T}() where T
-    Cache{T}(Ref(false), Vector{T}(0))
+    Cache{T}(Ref(false), Vector{T}())
 end
 
 Base.length(cache::Cache) = length(cache.cache)

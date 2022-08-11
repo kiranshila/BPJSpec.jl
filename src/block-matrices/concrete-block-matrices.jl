@@ -13,6 +13,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
+
 "Array that is split into arbitrary blocks."
 struct SimpleBlockArray{T, N, S} <: AbstractBlockMatrix{Array{T, N}, 1}
     storage :: S
@@ -22,6 +23,7 @@ end
 metadata_fields(array::SimpleBlockArray) = (array.length,)
 linear_index(::SimpleBlockArray, idx) = idx
 indices(array::SimpleBlockArray) = 1:array.length
+Base.size(a::SimpleBlockArray) = (a.length,)
 
 "Array that is split into blocks of m."
 struct MBlockArray{T, N, S} <: AbstractBlockMatrix{Array{T, N}, 1}
@@ -32,6 +34,8 @@ end
 metadata_fields(array::MBlockArray) = (array.mmax,)
 linear_index(::MBlockArray, m) = m+1
 indices(array::MBlockArray) = 0:array.mmax
+Base.axes(a::MBlockArray) = (indices(a),)
+Base.size(a::MBlockArray) = (a.mmax+1,)
 
 "Array that is split into blocks of frequency."
 struct FBlockArray{T, N, S} <: AbstractBlockMatrix{Array{T, N}, 1}
@@ -43,6 +47,7 @@ end
 metadata_fields(array::FBlockArray) = (array.frequencies, array.bandwidth)
 linear_index(::FBlockArray, β) = β
 indices(array::FBlockArray) = 1:length(array.frequencies)
+Base.size(a::FBlockArray) = (length(a.frequencies),)
 
 "Array that is split into blocks of m and frequency."
 struct MFBlockArray{T, N, S} <: AbstractBlockMatrix{Array{T, N}, 2}
@@ -55,6 +60,8 @@ end
 metadata_fields(array::MFBlockArray) = (array.mmax, array.frequencies, array.bandwidth)
 linear_index(array::MFBlockArray, m, β) = (array.mmax+1)*(β-1) + (m+1)
 indices(array::MFBlockArray) = ((m, β) for β = 1:length(array.frequencies) for m = 0:array.mmax)
+Base.axes(a::MFBlockArray) = (0:a.mmax,1:length(a.frequencies))
+Base.size(a::MFBlockArray) = (a.mmax,length(a.frequencies))
 
 "Diagonal array that is split into blocks of m and frequency."
 struct MFDiagonalBlockArray{T, S} <: AbstractBlockMatrix{Diagonal{T}, 2}
@@ -68,6 +75,8 @@ metadata_fields(array::MFDiagonalBlockArray) = (array.mmax, array.frequencies, a
 linear_index(array::MFDiagonalBlockArray, m, β) = (array.mmax+1)*(β-1) + (m+1)
 indices(array::MFDiagonalBlockArray) =
     ((m, β) for β = 1:length(array.frequencies) for m = 0:array.mmax)
+Base.axes(a::MFDiagonalBlockArray) = (0:a.mmax,1:length(a.frequencies))
+Base.size(a::MFDiagonalBlockArray) = (a.mmax+1,length(a.frequencies))
 
 "Array that is split into blocks of l."
 struct LBlockArray{T, N, S} <: AbstractBlockMatrix{Array{T, N}, 1}
@@ -80,6 +89,8 @@ end
 metadata_fields(array::LBlockArray) = (array.lmax, array.frequencies, array.bandwidth)
 linear_index(array::LBlockArray, l) = l+1
 indices(array::LBlockArray) = L(0):L(array.lmax)
+Base.axes(a::LBlockArray) = (0:a.lmax,)
+Base.size(a::LBlockArray) = (a.lmax+1,)
 
 "Array that is split into blocks of l and m."
 struct LMBlockArray{T, N, S} <: AbstractBlockMatrix{Array{T, N}, 2}
@@ -96,6 +107,8 @@ linear_index(array::LMBlockArray, l, m) =
     (m * (2array.lmax - m + 3)) ÷ 2 + l - m + 1
 indices(array::LMBlockArray) =
     ((l, m) for m = 0:array.mmax for l = L(m):L(array.lmax))
+Base.axes(a::LMBlockArray) = (0:a.lmax,0:a.mmax)
+Base.size(a::LMBlockArray) = (a.lmax+1,a.mmax+1)
 
 """
     struct SimpleBlockVector <: AbstractBlockMatrix{Vector{ComplexF64}, 1}

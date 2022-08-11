@@ -41,7 +41,7 @@ function average_frequency_channels(input, Navg; storage=NoFile(), progress=fals
     end
     @sync for worker in workers()
         @async while length(queue) > 0
-            m, β = shift!(queue)
+            m, β = popfirst!(queue)
             remotecall_wait(_average_frequency_channels, pool,
                             input, output, Δν, Δν′, m, β, partition[β])
             progress && increment()

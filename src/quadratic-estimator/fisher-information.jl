@@ -65,7 +65,7 @@ function fisher_monte_carlo(instruction, transfermatrix, covariancematrix, basis
                        transfermatrix, covariancematrix, basis)
             try
                 while length(queue) > 0
-                    iteration = shift!(queue)
+                    iteration = popfirst!(queue)
                     put!(input, instruction)
                     Q[:, iteration] = take!(output)
                     increment()

@@ -32,7 +32,7 @@ relatively inefficient compared to the standard `Array{T, N}`.
 * `cache` is used if we want to read the matrix from disk and then keep it in memory for faster
     access.
 """
-abstract type AbstractBlockMatrix{B, N}
+abstract type AbstractBlockMatrix{B, N} <: AbstractArray{B,N}
     # Fields:
     # storage :: S
     # cache   :: Cache{B}
@@ -113,6 +113,22 @@ Base.setindex!(matrix::AbstractBlockMatrix, block, idx) =
     set!(matrix, block, convert(Int, idx))
 Base.setindex!(matrix::AbstractBlockMatrix, block, idx, jdx) =
     set!(matrix, block, convert(Int, idx), convert(Int, jdx))
+
+function Base.getindex(matrix::AbstractBlockMatrix, idx::CartesianIndex{1})
+    get(matrix, convert(Int, idx[1]))
+end
+
+function Base.getindex(matrix::AbstractBlockMatrix, idx::CartesianIndex{2})
+    get(matrix, convert(Int, idx[1]), convert(Int, idx[2]))
+end
+
+function Base.setindex!(matrix::AbstractBlockMatrix, block, idx::CartesianIndex{1})
+    set!(matrix, block, convert(Int, idx[1]))
+end
+
+function Base.setindex!(matrix::AbstractBlockMatrix, block, idx::CartesianIndex{2})
+    set!(matrix, block, convert(Int, idx[1]), convert(Int, idx[2]))
+end
 
 @inline Base.getindex(matrix::AbstractBlockMatrix, idx::Tuple) = matrix[idx...]
 @inline Base.setindex!(matrix::AbstractBlockMatrix, block, idx::Tuple) = matrix[idx...] = block
@@ -197,3 +213,5 @@ function LinearAlgebra.dot(lhs::AbstractBlockMatrix, rhs::AbstractBlockMatrix)
     output
 end
 
+# Don't use the default `display`
+Base.display(bm::AbstractBlockMatrix) = show(bm)

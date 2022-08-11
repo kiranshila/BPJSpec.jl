@@ -80,7 +80,7 @@ function tikhonov_mfs(transfermatrix, mmodes, regularization, storage)
 
     @sync for worker in workers()
         @async while length(queue) > 0
-            m = shift!(queue)
+            m = popfirst!(queue)
             alm[m] = remotecall_fetch(_tikhonov_mfs, pool, transfermatrix, mmodes,
                                       regularization, lmax, m)
             increment()

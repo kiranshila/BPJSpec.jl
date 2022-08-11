@@ -36,7 +36,7 @@ function compute!(::Type{NoiseCovarianceMatrix}, matrix::MFDiagonalBlockMatrix,
     end
     @sync for worker in workers()
         @async while length(queue) > 0
-            m, β = shift!(queue)
+            m, β = popfirst!(queue)
             remotecall_fetch(_compute_noise_covariance, pool,
                              matrix, model, hierarchy, m, β)
             progress && increment()

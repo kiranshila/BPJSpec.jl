@@ -60,7 +60,7 @@ function distributed_broadcast!(f, output, args; progress=false)
     end
     @sync for worker in workers()
         @async while length(queue) > 0
-            indices = shift!(queue)
+            indices = popfirst!(queue)
             remotecall_fetch(just_do_it!, pool, f, output, args, indices)
             progress && increment()
         end
@@ -78,7 +78,7 @@ function multi_broadcast!(f, outputs, args; progress=false)
     end
     @sync for worker in workers()
         @async while length(queue) > 0
-            indices = shift!(queue)
+            indices = popfirst!(queue)
             remotecall_fetch(just_do_it!, pool, f, outputs, args, indices)
             progress && increment()
         end
